@@ -1,18 +1,20 @@
 class WordMatchFinder
-  attr_accessor :text, :sub_t, :text_ar, :sub_t_ar
+  attr_accessor :text, :sub_text, :text_ar, :sub_text_ar
   attr_reader :matches
-  def initialize(text,sub_t)
+  def initialize(text,sub_text)
     @text = text.downcase
-    @sub_t = sub_t.downcase
+    @sub_text = sub_text.downcase
     @text_ar = []
-    @sub_t_ar = []
+    @sub_text_ar = []
     @matches = []
   end
 
   def find_match
+    @text_ar = []
+    @sud_text_ar = []
     my_splitter
     @text_ar.each_index do |i|
-      if @text_ar[i...i + @sub_t_ar.length] == @sub_t_ar
+      if @text_ar[i...i + @sub_text_ar.length] == @sub_text_ar
         @matches.push(i+1)
       end
     end
@@ -23,24 +25,11 @@ class WordMatchFinder
 private
   attr_writer :matches
   def my_splitter
-    return nil if @text.length == @text_ar.length
     for i in 0...@text.length do
       @text_ar.push(@text[i])
     end
-    return nil if @sub_t.length == @sub_t_ar.length
-    for i in 0...@sub_t.length do
-      @sub_t_ar.push(@sub_t[i])
+    for i in 0...@sub_text.length do
+      @sub_text_ar.push(@sub_text[i])
     end
   end
 end
-
-# def foo(a,b)
-#   matches = Array.new
-#   a.each_index do |i|
-#     if a[i...i + b.length] == b
-#       matches.push(i+1)
-#     end
-#   end
-#   puts matches unless matches.empty?
-#   puts "< no matches >" if matches.empty?
-# end
