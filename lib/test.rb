@@ -1,3 +1,4 @@
+require 'pry'
 class WordMatchFinder
   attr_accessor :text, :sub_text, :text_ar, :sub_text_ar
   attr_reader :matches
@@ -10,9 +11,10 @@ class WordMatchFinder
   end
 
   def find_match
+    @sub_text_ar = []
     @text_ar = []
-    @sud_text_ar = []
-    my_splitter
+    splitter(@text, @text_ar)
+    splitter(@sub_text, @sub_text_ar)
     @text_ar.each_index do |i|
       if @text_ar[i...i + @sub_text_ar.length] == @sub_text_ar
         @matches.push(i+1)
@@ -24,12 +26,9 @@ class WordMatchFinder
 
 private
   attr_writer :matches
-  def my_splitter
-    for i in 0...@text.length do
-      @text_ar.push(@text[i])
-    end
-    for i in 0...@sub_text.length do
-      @sub_text_ar.push(@sub_text[i])
+  def splitter(t,ar)
+    for i in 0...t.length do
+      ar.push(t[i])
     end
   end
 end
