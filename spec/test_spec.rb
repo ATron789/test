@@ -47,11 +47,31 @@ describe WordMatchFinder do
 
   describe "more testing" do
     context "special case" do
-      it "word not in the given text" do
+      it "special characters" do
         test.sub_text = "!!!"
         test.find_match
         expect(test.matches).to eq []
       end
+
+      it "special characters and known word" do
+        test.sub_text = "!polly"
+        test.find_match
+        expect(test.matches).to eq []
+      end
+
+      it "reverse known word" do
+        test.sub_text = "yllop"
+        test.find_match
+        expect(test.matches).to eq []
+      end
+    end
+  end
+
+  describe "different text" do
+    it "has a different text" do
+      test.text = "ciao foo"
+      test.find_match
+      expect(test.matches).to eq []
     end
   end
 

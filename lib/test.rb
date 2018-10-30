@@ -1,7 +1,7 @@
 require 'pry'
 class WordMatchFinder
-  attr_accessor :text, :sub_text, :text_ar, :sub_text_ar
-  attr_reader :matches
+  attr_accessor :text, :sub_text
+  attr_reader :matches, :text_ar, :sub_text_ar
   def initialize(text,sub_text)
     @text = text
     @sub_text = sub_text
@@ -25,7 +25,7 @@ class WordMatchFinder
   end
 
 private
-  attr_writer :matches
+  attr_writer :matches, :text_ar, :sub_text_ar
   def splitter(t,ar)
     for i in 0...t.length do
       ar.push(t[i])
@@ -34,6 +34,7 @@ private
   def resetter
     @sub_text_ar = []
     @text_ar = []
+    @matches = []
   end
   def leveller
     @text.downcase!
