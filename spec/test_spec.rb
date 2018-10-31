@@ -46,11 +46,21 @@ describe WordMatchFinder do
   end
 
   describe "more testing" do
-    context "special case" do
+    context "special cases" do
       it "special characters" do
         test.sub_text = "!!!"
         test.find_match
         expect(test.matches).to eq []
+      end
+
+      it "array" do
+        test.sub_text = ["p", "o","l","l", "y"]
+        expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
+      end
+
+      it "numbers" do
+        test.sub_text = 12343
+        expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
       end
 
       it "special characters and known word" do
