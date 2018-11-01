@@ -1,4 +1,5 @@
-require 'test'
+require 'pry'
+require 'word_matcher'
 
 describe WordMatchFinder do
   let(:test) {WordMatchFinder.new("Polly put the kettle on, polly put the kettle on, polly put the kettle on we'll all have tea", "polly")}
@@ -53,20 +54,20 @@ describe WordMatchFinder do
         expect(test.matches).to eq []
       end
 
-      it "array" do
-        test.sub_text = ["p", "o","l","l", "y"]
-        expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
-      end
-
-      it "numbers" do
-        test.sub_text = 12343
-        expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
-      end
-
       it "special characters and known word" do
         test.sub_text = "!polly"
         test.find_match
         expect(test.matches).to eq []
+      end
+
+      it "sub_text is an array" do
+        test.sub_text = ["p", "o","l","l", "y"]
+        expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
+      end
+
+      it "sub_text is numbers" do
+        test.sub_text = 12343
+        expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
       end
 
       it "reverse known word" do
@@ -82,6 +83,16 @@ describe WordMatchFinder do
       test.text = "ciao foo"
       test.find_match
       expect(test.matches).to eq []
+    end
+
+    it "text is numbers" do
+      test.text = 12343
+      expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
+    end
+
+    it "text is an array" do
+      test.text = ["p", "o","l","l", "y"]
+      expect{test.find_match}.to raise_error(WordMatchFinder::InputError)
     end
   end
 
